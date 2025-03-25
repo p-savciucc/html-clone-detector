@@ -18,7 +18,33 @@ This mirrors real-world challenges where websites may share structure, content o
 ---
 
 ## 📁 Project Structure
-html-clone-detector/ ├── rust-core/ # 🦀 Rust core logic (clustering, analysis) │ ├── src/ │ │ ├── main.rs │ │ ├── analyzer.rs # Similarity logic │ │ └── clustering.rs # Grouping logic │ └── Cargo.toml # Rust config ├── node-renderer/ # 🌐 Node.js service using Puppeteer │ ├── index.js │ ├── package.json │ └── renderer.js # Extracts visible content ├── dataset/ # 📄 HTML input files │ ├── simple/ │ ├── medium/ │ └── complex/ ├── output/ # 📤 Grouped results │ ├── groups.json │ └── logs/ ├── shared/ # 📦 Shared schema/data contracts │ └── schema.json ├── diagrams/ # 📈 UML diagrams │ ├── context.puml │ └── sequence.puml └── README.md # 📘 Project description
+
+```
+html-clone-detector/
+├── rust-core/         # 🦀 Rust core logic (clustering, analysis)
+│   ├── src/
+│   │   ├── main.rs
+│   │   ├── analyzer.rs         # Similarity logic
+│   │   └── clustering.rs       # Grouping logic
+│   └── Cargo.toml              # Rust config
+├── node-renderer/     # 🌐 Node.js service using Puppeteer
+│   ├── index.js
+│   ├── package.json
+│   └── renderer.js             # Extracts visible content
+├── dataset/           # 📄 HTML input files
+│   ├── simple/
+│   ├── medium/
+│   └── complex/
+├── output/            # 📤 Grouped results
+│   ├── groups.json
+│   └── logs/
+├── shared/            # 📦 Shared schema/data contracts
+│   └── schema.json
+├── diagrams/          # 📈 UML diagrams
+│   ├── context.puml
+│   └── sequence.puml
+└── README.md          # 📘 Project description
+```
 
 
 ## 📌 Technologies Used
