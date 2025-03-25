@@ -18,37 +18,7 @@ This mirrors real-world challenges where websites may share structure, content o
 ---
 
 ## 📁 Project Structure
-html-clone-detector/
-├── rust-core/                    # 🦀 Codul sursă Rust (logică, clustering)
-│   ├── src/
-│   │   ├── main.rs
-│   │   ├── analyzer.rs           # Comparare & Similaritate
-│   │   └── clustering.rs         # Algoritmi de grupare
-│   └── Cargo.toml                # Configurație Rust
-│
-├── node-renderer/               # 🌐 Microserviciu Node.js cu Puppeteer
-│   ├── index.js
-│   ├── package.json
-│   └── renderer.js              # Logica de extragere text + screenshot
-│
-├── dataset/                     # 📄 Fișiere HTML de input
-│   ├── simple/
-│   ├── medium/
-│   └── complex/
-│
-├── output/                      # 📤 Rezultatele grupării
-│   ├── groups.json
-│   └── logs/
-│
-├── shared/                      # 📦 Structuri comune (ex: API contracts)
-│   └── schema.json              # Descrierea JSON primit de la Node
-│
-├── diagrams/                    # 📈 Diagrame PlantUML
-│   ├── context.puml
-│   └── sequence.puml
-│
-├── README.md                    # 📘 Descriere proiect
-└── .gitignore
+html-clone-detector/ ├── rust-core/ # 🦀 Rust core logic (clustering, analysis) │ ├── src/ │ │ ├── main.rs │ │ ├── analyzer.rs # Similarity logic │ │ └── clustering.rs # Grouping logic │ └── Cargo.toml # Rust config ├── node-renderer/ # 🌐 Node.js service using Puppeteer │ ├── index.js │ ├── package.json │ └── renderer.js # Extracts visible content ├── dataset/ # 📄 HTML input files │ ├── simple/ │ ├── medium/ │ └── complex/ ├── output/ # 📤 Grouped results │ ├── groups.json │ └── logs/ ├── shared/ # 📦 Shared schema/data contracts │ └── schema.json ├── diagrams/ # 📈 UML diagrams │ ├── context.puml │ └── sequence.puml └── README.md # 📘 Project description
 
 
 ## 📌 Technologies Used
@@ -57,6 +27,6 @@ html-clone-detector/
 - PlantUML for architecture and sequence diagrams
 
 👨‍💻 Author
-Savciuc Constantin
-Email: savciuccu@gmail.com
-Location: Bucharest, Romania
+- Savciuc Constantin
+- Email: savciuccu@gmail.com
+- Location: Bucharest, Romania
