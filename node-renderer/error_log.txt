@@ -44,3 +44,12 @@
 [2025-03-26T12:42:57.132Z] Eroare la fișierul: ../dataset/tier1/wifipresspad.com.html | Detalii: Screenshot error: Screenshot timeout
 [2025-03-26T12:46:45.568Z] Eroare la fișierul: ../dataset/tier4/wowlklnd.com.html | Detalii: Screenshot error: Screenshot timeout
 [2025-03-26T12:46:45.972Z] Eroare la fișierul: ../dataset/tier4/zenlfs.com.html | Detalii: Screenshot error: Screenshot timeout
+[2025-03-26T13:24:13.354Z] Eroare la fișierul: ../dataset/tier1/rootsbluesbarbecue.com.html | Detalii: Screenshot error: Screenshot timeout
+[2025-03-26T13:24:13.484Z] Eroare la fișierul: ../dataset/tier1/rovics.com.html | Detalii: Screenshot error: Screenshot timeout
+[2025-03-26T13:24:13.713Z] Eroare la fișierul: ../dataset/tier1/scalingspecialists.com.html | Detalii: Screenshot error: Screenshot timeout
+[2025-03-26T13:24:13.821Z] Eroare la fișierul: ../dataset/tier1/sodearif.com.html | Detalii: Screenshot error: Screenshot timeout
+[2025-03-26T13:24:13.973Z] Eroare la fișierul: ../dataset/tier1/soultosolesoundspa.com.html | Detalii: Screenshot error: Screenshot timeout
+[2025-03-26T13:24:14.209Z] Eroare la fișierul: ../dataset/tier1/stratalaser.com.html | Detalii: Screenshot error: Screenshot timeout
+[2025-03-26T13:24:14.321Z] Eroare la fișierul: ../dataset/tier1/templarsnotary.com.html | Detalii: Screenshot error: Screenshot timeout
+[2025-03-26T13:24:14.449Z] Eroare la fișierul: ../dataset/tier1/thisisthefuckingnews.com.html | Detalii: Screenshot error: Screenshot timeout
+[2025-03-26T13:24:14.622Z] Eroare la fișierul: ../dataset/tier1/wifipresspad.com.html | Detalii: Screenshot error: Screenshot timeout
