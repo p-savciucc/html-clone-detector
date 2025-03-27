@@ -1,8 +1,6 @@
 to_do.txt
 history_evolution.txt
 node-renderer/node_modules
-node-renderer/screenshots
-node-renderer/output_pool.json
 dataset/
+output/
 rust-core/target/
-rust-core/clusters.json
