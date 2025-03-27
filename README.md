@@ -134,7 +134,9 @@ It illustrates the workflow from the user’s perspective, through the Node.js s
 ---
 
 ## Development Time
-Example: The Node-based part took around 3 hours and 51 minutes of experimentation and optimization, with a final runtime of ~32 seconds. The Rust clustering completes in about 1.2 seconds after the HTML rendering step.
+The analysis and architecture design took approximately 1 hour and 30 minutes. The Node-based part required around 6 hours and 31 minutes, including optimization and more detailed output, with a final runtime of ~32 seconds. The Rust part took about 2 hours and 40 minutes, including optimization, with processing completed in roughly 1.2 seconds after the HTML rendering step. Additionally, testing with various scenarios added another 3 hours to the overall effort.
+
+**Total**: approximately 13 hours and 41 minutes.
 
 ---
 
