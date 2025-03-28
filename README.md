@@ -5,6 +5,18 @@
 ![Status](https://img.shields.io/badge/status-stable-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
+## 🔎 Quick Navigation
+
+- [Short Description](#short-description)
+- [Long Description](#long-description)
+- [Project Structure](#project-structure)
+- [Technologies Used](#technologies-used)
+- [Tests](#tests)
+- [Usage](#usage)
+- [Sequence Diagram](#sequence-diagram)
+- [Development Time](#development-time)
+- [Author](#author)
+
 ## Short Description
 A high-performance, scalable tool that detects and groups visually similar (“clone”) HTML documents based on how they render in a web browser.
 
