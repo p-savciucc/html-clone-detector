@@ -128,24 +128,24 @@ cargo run --release
 ## Usage
 
 1. **Clone the repository**:
-```bash
-git clone <repo-url>
-cd HTML-CLONE-DETECTOR
-```
+    ```bash
+    git clone <repo-url>
+    cd HTML-CLONE-DETECTOR
+    ```
 2. **Install Node.js dependencies**:
-```bash
-cd node-renderer
-npm install
-```
+    ```bash
+    cd node-renderer
+    npm install
+    ```
 3. **Run the HTML rendering script**:
-```bash
-node batch_render.mjs
-```
+    ```bash
+    node batch_render.mjs
+    ```
 4. **Compile and run the Rust component**:
-```bash
-cd ../rust-core
-cargo run --release
-```
+    ```bash
+    cd ../rust-core
+    cargo run --release
+    ```
 
 ---
 
