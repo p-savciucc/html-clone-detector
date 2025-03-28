@@ -3,6 +3,7 @@ use crate::vectorizer::TextFeatures;
 use crate::image_processor::ImageFeatures;
 use crate::loader::Document;
 use std::collections::{HashMap, HashSet};
+use indicatif::ProgressBar;
 
 #[derive(Debug)]
 struct Cluster {
@@ -17,6 +18,7 @@ pub fn cluster_documents(
     image_features: &[ImageFeatures],
     text_threshold: f64,
     image_threshold: f64,
+    pb: &ProgressBar,
 ) -> Vec<Vec<String>> {
     let feature_map: HashMap<_, _> = docs.iter()
         .enumerate()
@@ -28,6 +30,7 @@ pub fn cluster_documents(
     let mut clusters: Vec<Cluster> = Vec::new();
     
     for doc in docs {
+        pb.inc(1);
         let (text_feat, image_feat) = &feature_map[&doc.filename];
         
         let mut best_cluster = None;

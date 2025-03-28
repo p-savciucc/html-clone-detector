@@ -15,8 +15,4 @@ seahash = "4.1"
 thiserror = "1.0"
 humantime = "2.1"
 
-# ----------------------------
-
-html5ever = "0.25"
-markup5ever_rcdom = "0.2"
-encoding_rs = "0.8"
+indicatif = "0.17.7"

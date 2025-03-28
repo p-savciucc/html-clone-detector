@@ -4,6 +4,7 @@ mod clustering;
 mod image_processor;
 mod constants;
 
+use indicatif::{ProgressBar, ProgressStyle};
 use constants::{INPUT_FILE, OUTPUT_FILE, ERROR_LOG_FILE, TEXT_SIM_THRESHOLD, IMAGE_SIM_THRESHOLD};
 
 use std::{
@@ -11,7 +12,7 @@ use std::{
     error::Error,
     fs::{self, File},
     io::Write,
-    sync::{Arc, Mutex, atomic::{AtomicBool, Ordering}},
+    sync::{Arc, Mutex},
     time::{Instant, SystemTime},
 };
 use rayon::prelude::*;
@@ -28,27 +29,30 @@ fn format_timestamp(time: SystemTime) -> String {
 
 fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
     let start_time = Instant::now();
-    
     fs::create_dir_all(constants::OUTPUT_DIR)?;
     
     let tier_docs = load_documents(INPUT_FILE)?;
-    println!("📂 Found tiers: {}", tier_docs.len());
+    
+    let total_documents: usize = tier_docs.values().map(|docs| docs.len()).sum();
+    println!("🔎 Total files to process: {}\n", total_documents);
     
     let mut overall_clusters = HashMap::new();
-
     let text_sim_threshold = TEXT_SIM_THRESHOLD;
     let image_sim_threshold = IMAGE_SIM_THRESHOLD;
-    
-    let is_printed = AtomicBool::new(false);
     let skipped_docs = Arc::new(Mutex::new(HashSet::new()));
 
+    let pb = ProgressBar::new(total_documents as u64);
+    pb.set_style(ProgressStyle::default_bar()
+        .template("[{spinner}] [{elapsed_precise}] [{bar:40.cyan/blue}] {pos}/{len} ({eta})")
+        .unwrap()
+        .progress_chars("##-"));
+    
     let results: Vec<_> = tier_docs
         .into_par_iter()
         .map(|(tier, docs)| {
-            println!("⚙️  Processing tier: {} ({} documents)", tier, docs.len());
+            pb.set_message(format!("Processing tier: {} ({} documents)", tier, docs.len()));
             
             let vocab = build_vocabulary(&docs);
-            
             let mut valid_docs = Vec::new();
             let mut valid_text_features = Vec::new();
             let mut valid_image_features = Vec::new();
@@ -80,43 +84,41 @@ fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
                     &valid_text_features, 
                     &valid_image_features, 
                     text_sim_threshold, 
-                    image_sim_threshold
+                    image_sim_threshold,
+                    &pb
                 )
             } else {
                 Vec::new()
             };
 
-            if !is_printed.swap(true, Ordering::Relaxed) {
-                println!();
-            }
-
-            println!("🧠 Clusters found in {}: {}", tier, clusters.len());
+            pb.println(format!("🧠 Clusters found in {}: {}", tier, clusters.len()));
             Ok((tier, clusters))
         })
         .collect::<Result<Vec<_>, Box<dyn Error + Send + Sync>>>()?;
+    
+
+    pb.finish();
     
     for (tier, clusters) in results {
         overall_clusters.insert(tier, json!(clusters));
     }
     
     fs::write(OUTPUT_FILE, serde_json::to_string_pretty(&overall_clusters)?)?;
-
+    
     let skipped = skipped_docs.lock().unwrap();
     if !skipped.is_empty() {
         let mut file = File::create(ERROR_LOG_FILE)?;
         for error_entry in skipped.iter() {
             writeln!(file, "{}", error_entry)?;
         }
-        
-        println!("\n⚠️  Skipped {} documents. Details saved to: `{}`", 
+        println!(" ⚠️  Skipped {} documents. Details saved to: `{}`  ", 
             skipped.len(), ERROR_LOG_FILE);
     } else {
-        println!("\n✅ No documents were skipped during processing");
+        println!("\n\n✅ No documents were skipped during processing  ");
     }
 
-    println!();
-    println!("✅ Processing completed in {:.2?}", start_time.elapsed());
-    println!("💾 Results saved to `{}`", OUTPUT_FILE);
+    println!("✅ Processing completed in {:.2?}  ", start_time.elapsed());
+    println!("\n💾 Results saved to `{}`", OUTPUT_FILE);
 
     Ok(())
 }

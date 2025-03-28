@@ -15,9 +15,9 @@ async function main() {
 
     const duration = ((Date.now() - start) / 1000).toFixed(2);
     console.log(
-      `\n\n✅ Processing complete in ${duration}s. `+
-      `Results saved to ${OUTPUT_FILE}\n`+
-      ` - Files processed with ${pool.progress.errors} errors.`
+      `\n\n✅ Files processed with ${pool.progress.errors} errors\n`+
+      `✅ Processing complete in ${duration}s.\n\n`+
+      `💾 Results saved to ${OUTPUT_FILE}`
     );
   } catch (error) {
     console.error('⛔ Critical error:', error);
