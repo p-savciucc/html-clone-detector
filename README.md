@@ -14,32 +14,26 @@ In real-world scenarios, multiple web pages may share structural or textual cont
 ---
 
 ## Project Structure
-(see attached screenshot `image.png`)
 ```
 HTML-CLONE-DETECTOR/
-├── dataset/
-├── diagrams/
-├── node-renderer/
-│   ├── node_modules/
-│   ├── src/
-│   │   ├── constants.js
-│   │   ├── main.js
-│   │   ├── pool.js
-│   │   └── scanner.js
+├── dataset/            # HTML files to be processed
+├── diagrams/           # PNG diagrams for architecture and sequence
+│   ├── context.png
+│   └── sequence.png
+├── node-renderer/      # Node.js part (with Puppeteer)
+│   ├── batch_render.mjs
 │   ├── package.json
 │   └── package-lock.json
-├── output/
-├── rust-core/
+├── output/             # Generated results: JSON, screenshots, error logs
+├── rust-core/          # Rust logic for clustering
 │   ├── src/
 │   │   ├── clustering.rs
-│   │   ├── constants.rs
 │   │   ├── image_processor.rs
 │   │   ├── loader.rs
 │   │   ├── main.rs
 │   │   └── vectorizer.rs
 │   ├── Cargo.toml
 │   └── Cargo.lock
-├── .gitignore
 ├── dev_progress_log.txt
 ├── README.md
 └── to_do.txt
@@ -55,72 +49,54 @@ HTML-CLONE-DETECTOR/
 
 ---
 
-## Tests
+## Results
 
-### Node Renderer Tests
+### 1) Node Renderer
 
-**Test 1 – 193 files**
+After installing dependencies and running the main script:
 ```bash
-node main.js
-🔎 Total files to process: 193
-📁 tier1: 101/101 | 📊 193/193 | ⏳ 100.0%
-✅ Files processed with 0 errors
-✅ Processing complete in 15.58s
-💾 Results saved to ../../output/node-renderer/output_pool.json
+cd node-renderer
+npm install
+node batch_render.mjs
 ```
 
-**Test 2 – 1102 files**
-```bash
-node main.js
-🔎 Total files to process: 1102
-📁 tier1: 101/101 | 📊 1102/1102 | ⏳ 100.0%
-✅ Files processed with 0 errors
-✅ Processing complete in 74.68s
-💾 Results saved to ../../output/node-renderer/output_pool.json
+**Example output**:
+```
+🔎 Total files to process: 193 + 3
+ - Process 1: Close pages.
+ - Process 2: Close browser.
+ - Process 3: Write output file.
+
+(Step 3/3 complete) | 📊 196/196 | ⏳ ████████████████████] 100.0% | 🕒 ETA: ~0.0s
+
+✅ Processing complete in 32.83s. Results saved to `../output/node-renderer/output_pool.json`
+ - Files processed with 0 errors.
 ```
 
-**Test 3 – 2073 files**
+### 2) Rust Core
+
+Compiling and running in release mode:
 ```bash
-node main.js
-🔎 Total files to process: 2073
-📁 tier1: 101/101 | 📊 2073/2073 | ⏳ 100.0%
-✅ Files processed with 0 errors
-✅ Processing complete in 129.09s
-💾 Results saved to ../../output/node-renderer/output_pool.json
-```
-
----
-
-### Rust Core Tests
-
-**Test 1 – 193 files**
-```bash
+cd rust-core
 cargo run --release
+```
+
+**Example output**:
+```
+📂 Found tiers: 4
+⚙️  Processing tier: tier2 (22 documents)
+⚙️  Processing tier: tier1 (101 documents)
+⚙️  Processing tier: tier3 (40 documents)
+⚙️  Processing tier: tier4 (30 documents)
+
 🧠 Clusters found in tier1: 17
 🧠 Clusters found in tier2: 9
-🧠 Clusters found in tier3: 9
+🧠 Clusters found in tier3: 10
 🧠 Clusters found in tier4: 10
-✅ No documents were skipped
-✅ Processing completed in 346.77ms
-💾 Results saved to ../../output/rust-core/clusters.json
-```
 
-**Test 2 – 1102 files**
-```bash
-cargo run --release
-🧠 Clusters found in multiple tier1 copies (all 17)
-✅ No documents were skipped
-✅ Processing completed in 1.21s
-💾 Results saved to ../../output/rust-core/clusters.json
-```
-
-**Test 3 – 2073 files**
-```bash
-cargo run --release
-🧠 Clusters found in tier1 copies and other tiers
-✅ No documents were skipped
-✅ Processing completed in 2.16s
-💾 Results saved to ../../output/rust-core/clusters.json
+✅ No documents were skipped during processing
+✅ Processing completed in 1.22s
+💾 Results saved to `../output/rust-core/clusters.json`
 ```
 
 ---
@@ -128,36 +104,39 @@ cargo run --release
 ## Usage
 
 1. **Clone the repository**:
-    ```bash
-    git clone <repo-url>
-    cd HTML-CLONE-DETECTOR
-    ```
-2. **Install Node.js dependencies**:
-    ```bash
-    cd node-renderer
-    npm install
-    ```
+   ```bash
+   git clone <repo-url>
+   cd HTML-CLONE-DETECTOR
+   ```
+2. **Install Node.js dependencies** (in the `node-renderer/` folder):
+   ```bash
+   cd node-renderer
+   npm install
+   ```
 3. **Run the HTML rendering script**:
-    ```bash
-    node batch_render.mjs
-    ```
-4. **Compile and run the Rust component**:
-    ```bash
-    cd ../rust-core
-    cargo run --release
-    ```
+   ```bash
+   node batch_render.mjs
+   ```
+   Outputs will be placed in `output/node-renderer/`.
+4. **Compile and run the Rust component** (in the `rust-core/` folder):
+   ```bash
+   cd ../rust-core
+   cargo run --release
+   ```
+   The clustering results will be stored under `output/rust-core/`.
 
 ---
 
 ## Sequence Diagram
-See `diagrams/sequence.png` for a visual overview of the rendering and clustering workflow.
+For an overview of how HTML files are read, rendered, and then grouped, see `diagrams/sequence.png`.  
+It illustrates the workflow from the user’s perspective, through the Node.js service (Puppeteer) and finally into the Rust-based clustering logic.
 
 ---
 
 ## Development Time
-The analysis and architecture design took approximately 1 hour and 30 minutes. The Node-based part required around 6 hours and 31 minutes, including optimization and more detailed output, with a final runtime of ~32 seconds. The Rust part took about 2 hours and 40 minutes, including optimization, with processing completed in roughly 1.2 seconds after the HTML rendering step. Additionally, testing with various scenarios added another 5 hours to the overall effort.
+The analysis and architecture design took approximately 1 hour and 30 minutes. The Node-based part required around 6 hours and 31 minutes, including optimization and more detailed output, with a final runtime of ~32 seconds. The Rust part took about 2 hours and 40 minutes, including optimization, with processing completed in roughly 1.2 seconds after the HTML rendering step. Additionally, testing with various scenarios added another 3 hours to the overall effort.
 
-**Total**: approximately 15 hours and 41 minutes.
+**Total**: approximately 13 hours and 41 minutes.
 
 ---
 
