@@ -194,80 +194,143 @@ These specs represent a mid-range development environment. Performance may diffe
 
 ## Usage
 
-This project provides a `run_all.sh` script to streamline the setup and execution of both the Node.js and Rust components.
+This project includes ready-to-run scripts for both Linux/Mac and Windows to simplify setup and execution:
+
+- **Linux / macOS**: `run_all.sh` (Bash script)
+- **Windows**: `run_all.ps1` (PowerShell script)
 
 ---
 
-### 🔧 Full Setup & Run Guide (from scratch)
+### 🔧 Full Setup & Execution Guide (All OS)
 
-#### 1. Clone the project and navigate to the directory
+#### 1. 📦 Clone the Repository
 ```bash
-git clone <URL_PROIECT>
-cd HTML-CLONE-DETECTOR
+# Linux / macOS
+git clone https://github.com/your-repo/html-clone-detector.git
+cd html-clone-detector
+```
+```powershell
+# Windows
+git clone https://github.com/your-repo/html-clone-detector.git
+cd html-clone-detector
 ```
 
-#### 2. Install Node.js dependencies
+#### 2. ⚙️ Install Dependencies
+
 ```bash
-# Install Node.js (if not already installed)
+# Linux / macOS
 curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 sudo apt-get install -y nodejs
-
-# Or use nvm: https://github.com/nvm-sh/nvm
-
-# Install project dependencies
-cd node-renderer
-npm install
-cd ..
-```
-
-#### 3. Install Rust (if not installed)
-```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source $HOME/.cargo/env
+source "$HOME/.cargo/env"
 ```
 
-#### 4. Build Rust dependencies
-```bash
-cd rust-core
-cargo build --release
-cd ..
+```powershell
+# Windows (Requires Chocolatey)
+choco install nodejs rustup -y
+rustup-init -y
+$env:Path += ";C:\Users\$env:USERNAME\.cargo\bin"
 ```
 
-#### 5. Prepare environment
+#### 3. 🔨 Build Components
+
 ```bash
+cd node-renderer && npm install && cd ..
+cd rust-core && cargo build --release && cd ..
+```
+
+```powershell
+cd node-renderer; npm install; cd ..
+cd rust-core; cargo build --release; cd ..
+```
+
+#### 4. 🗂️ Prepare Environment
+
+```bash
+# Linux / macOS
 mkdir -p dataset
 chmod +x run_all.sh
 ```
 
-#### 6. Run project
+```powershell
+# Windows
+New-Item -ItemType Directory -Path "dataset" -Force
+Set-ExecutionPolicy Bypass -Scope Process -Force
+```
+
+#### 5. ▶️ Run the Pipeline
+
 ```bash
 ./run_all.sh
 ```
 
----
-
-### Key Paths
-
-| Purpose              | Path                          |
-|----------------------|-------------------------------|
-| Input HTML files     | `dataset/`                    |
-| Rendering results    | `node-renderer/output/`       |
-| Clustering results   | `rust-core/output/`           |
-| Error logs           | `node-renderer/error.log`     |
-
----
-
-### ℹ️ Notes
-- For Windows systems, replace `apt-get` with `choco install nodejs` (via Chocolatey)
-- Puppeteer will download a local Chromium instance (~180MB) on first run
-- Place HTML files for analysis inside the `dataset/` folder before executing the script
-- If Puppeteer fails to install, try:
-```bash
-cd node-renderer
-npm install puppeteer
+```powershell
+.
+run_all.ps1
 ```
 
 ---
+
+### 📁 Cross-Platform Output Paths
+
+| Description        | Linux/macOS Path              | Windows Path              |
+|--------------------|-------------------------------|---------------------------|
+| Input HTML Files   | `dataset/`                    | `dataset\`               |
+| Screenshots Output | `node-renderer/output/`       | `node-renderer\output\` |
+| Cluster Results    | `rust-core/output/`           | `rust-core\output\`     |
+| Error Logs         | `node-renderer/error.log`     | `node-renderer\error.log`|
+
+---
+
+### 🛠 Troubleshooting Tips
+
+#### Puppeteer / Chromium Issues
+```bash
+# Linux
+sudo apt-get install -y libgbm-dev
+```
+```powershell
+# Windows
+npm install --global windows-build-tools
+```
+
+#### Rust Build Issues
+- Install [Visual Studio C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) on Windows.
+
+#### Skip Chromium Download
+```bash
+PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm install
+```
+
+#### Windows WSL Option
+```bash
+wsl git clone ...
+# Then follow Linux instructions
+```
+
+---
+
+### 📂 Unified Runner Scripts (logic used)
+
+**`run_all.sh` (Linux/Mac)**
+
+```bash
+#!/bin/bash
+echo "🔄 Rendering HTML documents..." && cd node-renderer && node src/main.js && cd .. && echo "🔍 Analyzing clusters..." && cd rust-core/target/release && ./html_clone_detector && cd ../../..
+```
+
+**`run_all.ps1` (Windows)**
+
+```powershell
+Write-Host "🔄 Rendering HTML documents..." -ForegroundColor Cyan
+cd node-renderer; node src/main.js; cd ..
+Write-Host "🔍 Analyzing clusters..." -ForegroundColor Cyan
+cd rust-core\target\release; .\html_clone_detector.exe; cd ..\..\..
+```
+
+---
+
+✅ With these steps, your environment will be ready to process and analyze thousands of HTML files in just a few minutes — fully automated on **any OS**.
 
 ## Sequence Diagram
 The system consists of two main components: a Node.js renderer and a Rust-based clustering engine.
