@@ -8,13 +8,53 @@
 ## Short Description
 A high-performance, scalable tool that detects and groups visually similar (“clone”) HTML documents based on how they render in a web browser.
 
-## Long Description
-The main purpose of this project is to identify and group HTML files that appear visually identical in a headless browser, even if their underlying code differs slightly. The solution leverages:
-- **Rust** for high-speed logic and clustering mechanisms (DBSCAN or similar).
-- **Node.js + Puppeteer** for rendering HTML in a headless browser, extracting visible text, and capturing screenshots.
-- A custom similarity analysis module that calculates and groups “clone sets” of HTML documents.
+## Long Description  
+This project detects and groups visually similar HTML documents based on how they render in a headless browser, even if their source code differs slightly.  
 
-In real-world scenarios, multiple web pages may share structural or textual content but differ in small code details. This project focuses on efficiency, parallelization, and consistent data extraction to form coherent clusters of similar pages.
+It uses:  
+- **Rust** for fast clustering logic and parallel processing (e.g., DBSCAN)  
+- **Node.js + Puppeteer** for headless rendering, visible text extraction, and screenshots  
+- A custom similarity engine to form "clone sets" based on visual and textual features  
+
+In practice, many web pages look identical despite structural code differences. This solution emphasizes scalability, parallelism, and reliable data extraction to create accurate, consistent clusters of similar pages.
+---
+
+### 🧠 Ultra-Compact Summary: Hybrid HTML Clustering
+
+**Hybrid HTML Clustering Algorithm** combines text and visual analysis:
+
+1. **Text**: Extracts TF-IDF from content (tokenization + stop-word removal) and compares with cosine similarity  
+2. **Images**: Builds color histograms from screenshots and uses histogram intersection for comparison  
+3. **Adaptive Clustering**: Uses an incremental threshold-based algorithm with real-time centroid updates  
+4. **Parallelization**: Efficient processing of large datasets via **Rayon**  
+5. **Robustness**: Error logging, data validation, and non-blocking resource management
+
+**Unique Approach**: Smart fusion of textual semantics and visual appearance with strong focus on scalability and precision.
+
+---
+
+### ⚙️ Node.js Renderer Summary
+
+**Advanced Preprocessing Pipeline**:
+
+1. **Parallel rendering**: Utilizes Puppeteer with a configurable pool of headless browsers  
+2. **Performance optimizations**:
+   - Caches requests  
+   - Blocks unnecessary resources (images, CSS)  
+   - Downscales resolution (800x600 @ 0.5x)  
+3. **Content extraction**:
+   - Captures JPEG screenshots (80% quality)  
+   - Extracts clean text (excluding JS/CSS)  
+4. **Resource management**:
+   - Real-time progress with ETA  
+   - Structured error logging  
+   - File output grouped by tiers
+
+**Rust Core Integration**:  
+Prepares raw data (text + screenshots) and streams it to the clustering system.
+
+**Scalability**:  
+Capable of processing thousands of HTML files using smart parallelism and efficient resource handling.
 
 ---
 
