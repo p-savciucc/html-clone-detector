@@ -110,6 +110,18 @@ cargo run --release
 
 ---
 
+**⚠️ Note**:  
+Execution times may vary depending on hardware capabilities.  
+All tests were performed on a local machine with the following specifications:
+- **Processor**: Intel Core i5-1135G7  
+- **RAM**: 16 GB  
+- **Storage**: SSD  
+- **Operating System**: Ubuntu 22.04 LTS
+
+These specs represent a mid-range development environment. Performance may differ on other setups, especially with lower CPU or memory resources.
+
+---
+
 ## Usage
 
 1. **Clone the repository**:
