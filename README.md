@@ -188,11 +188,6 @@ chmod +x run_all.sh
 
 ---
 
-## Sequence Diagram
-The system consists of two main components: a Node.js renderer and a Rust-based clustering engine.
-
----
-
 ### ℹ️ Notes
 - For Windows systems, replace `apt-get` with `choco install nodejs` (via Chocolatey)
 - Puppeteer will download a local Chromium instance (~180MB) on first run
@@ -204,6 +199,9 @@ npm install puppeteer
 ```
 
 ---
+
+## Sequence Diagram
+The system consists of two main components: a Node.js renderer and a Rust-based clustering engine.
 
 ![Sequence Diagram](diagrams/sequence.png)
 
