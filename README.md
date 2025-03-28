@@ -265,7 +265,6 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 ```
 
 ```powershell
-.
 run_all.ps1
 ```
 
