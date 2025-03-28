@@ -46,6 +46,7 @@ HTML-CLONE-DETECTOR/
 ├── .gitignore
 ├── dev_progress_log.txt
 ├── README.md
+├── run_all.sh
 └── to_do.txt
 ```
 
