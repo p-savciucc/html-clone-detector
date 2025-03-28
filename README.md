@@ -124,32 +124,85 @@ These specs represent a mid-range development environment. Performance may diffe
 
 ## Usage
 
-1. **Clone the repository**:
+This project provides a `run_all.sh` script to streamline the setup and execution of both the Node.js and Rust components.
+
+---
+
+### 🔧 Full Setup & Run Guide (from scratch)
+
+#### 1. Clone the project and navigate to the directory
 ```bash
-git clone <repo-url>
+git clone <URL_PROIECT>
 cd HTML-CLONE-DETECTOR
 ```
-2. **Install Node.js dependencies**:
+
+#### 2. Install Node.js dependencies
 ```bash
+# Install Node.js (if not already installed)
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# Or use nvm: https://github.com/nvm-sh/nvm
+
+# Install project dependencies
 cd node-renderer
 npm install
+cd ..
 ```
-3. **Run the HTML rendering script**:
+
+#### 3. Install Rust (if not installed)
 ```bash
-cd src
-node main.js
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
 ```
-4. **Compile and run the Rust component**:
+
+#### 4. Build Rust dependencies
 ```bash
-cd ../../rust-core
-cd src
-cargo run --release
+cd rust-core
+cargo build --release
+cd ..
 ```
+
+#### 5. Prepare environment
+```bash
+mkdir -p dataset
+chmod +x run_all.sh
+```
+
+#### 6. Run project
+```bash
+./run_all.sh
+```
+
+---
+
+### Key Paths
+
+| Purpose              | Path                          |
+|----------------------|-------------------------------|
+| Input HTML files     | `dataset/`                    |
+| Rendering results    | `node-renderer/output/`       |
+| Clustering results   | `rust-core/output/`           |
+| Error logs           | `node-renderer/error.log`     |
 
 ---
 
 ## Sequence Diagram
 The system consists of two main components: a Node.js renderer and a Rust-based clustering engine.
+
+---
+
+### ℹ️ Notes
+- For Windows systems, replace `apt-get` with `choco install nodejs` (via Chocolatey)
+- Puppeteer will download a local Chromium instance (~180MB) on first run
+- Place HTML files for analysis inside the `dataset/` folder before executing the script
+- If Puppeteer fails to install, try:
+```bash
+cd node-renderer
+npm install puppeteer
+```
+
+---
 
 ![Sequence Diagram](diagrams/sequence.png)
 
