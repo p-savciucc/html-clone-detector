@@ -1,3 +1,11 @@
+mod loader;
+mod vectorizer;
+mod clustering;
+mod image_processor;
+mod constants;
+
+use constants::{INPUT_FILE, OUTPUT_FILE, ERROR_LOG_FILE, TEXT_SIM_THRESHOLD, IMAGE_SIM_THRESHOLD};
+
 use std::{
     collections::{HashMap, HashSet},
     error::Error,
@@ -8,11 +16,6 @@ use std::{
 };
 use rayon::prelude::*;
 use serde_json::json;
-
-mod loader;
-mod vectorizer;
-mod clustering;
-mod image_processor;
 
 use loader::load_documents;
 use vectorizer::{build_vocabulary, TextFeatures};
@@ -26,14 +29,15 @@ fn format_timestamp(time: SystemTime) -> String {
 fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
     let start_time = Instant::now();
     
-    fs::create_dir_all("../output/rust-core")?;
+    fs::create_dir_all(constants::OUTPUT_DIR)?;
     
-    let tier_docs = load_documents("../output/node-renderer/output_pool.json")?;
+    let tier_docs = load_documents(INPUT_FILE)?;
     println!("📂 Found tiers: {}", tier_docs.len());
     
     let mut overall_clusters = HashMap::new();
-    let text_sim_threshold = 0.7;
-    let image_sim_threshold = 0.85;
+
+    let text_sim_threshold = TEXT_SIM_THRESHOLD;
+    let image_sim_threshold = IMAGE_SIM_THRESHOLD;
     
     let is_printed = AtomicBool::new(false);
     let skipped_docs = Arc::new(Mutex::new(HashSet::new()));
@@ -46,8 +50,8 @@ fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
             let vocab = build_vocabulary(&docs);
             
             let mut valid_docs = Vec::new();
-            let mut valid_text_features: Vec<TextFeatures> = Vec::new();
-            let mut valid_image_features: Vec<ImageFeatures> = Vec::new();
+            let mut valid_text_features = Vec::new();
+            let mut valid_image_features = Vec::new();
             
             for doc in docs {
                 match ImageFeatures::from_path(&doc.screenshot) {
@@ -95,28 +99,24 @@ fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
         overall_clusters.insert(tier, json!(clusters));
     }
     
-    let output_path = "../output/rust-core/clusters.json";
-    let output = serde_json::to_string_pretty(&overall_clusters)?;
-    fs::write(output_path, &output)?;
+    fs::write(OUTPUT_FILE, serde_json::to_string_pretty(&overall_clusters)?)?;
 
     let skipped = skipped_docs.lock().unwrap();
-    let error_log_path = "../output/rust-core/error_log.txt";
-    
     if !skipped.is_empty() {
-        let mut file = File::create(error_log_path)?;
+        let mut file = File::create(ERROR_LOG_FILE)?;
         for error_entry in skipped.iter() {
             writeln!(file, "{}", error_entry)?;
         }
         
         println!("\n⚠️  Skipped {} documents. Details saved to: `{}`", 
-            skipped.len(), error_log_path);
+            skipped.len(), ERROR_LOG_FILE);
     } else {
         println!("\n✅ No documents were skipped during processing");
     }
 
     println!();
     println!("✅ Processing completed in {:.2?}", start_time.elapsed());
-    println!("💾 Results saved to `{}`", output_path);
+    println!("💾 Results saved to `{}`", OUTPUT_FILE);
 
     Ok(())
 }

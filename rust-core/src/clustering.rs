@@ -1,3 +1,4 @@
+use crate::constants::{TEXT_WEIGHT, IMAGE_WEIGHT};
 use crate::vectorizer::TextFeatures;
 use crate::image_processor::ImageFeatures;
 use crate::loader::Document;
@@ -35,9 +36,9 @@ pub fn cluster_documents(
         for (i, cluster) in clusters.iter().enumerate() {
             let text_sim = cosine_similarity(&text_feat.tfidf_vector, &cluster.text_centroid);
             let image_sim = histogram_similarity(&image_feat.color_histogram, &cluster.image_centroid);
-            let combined_score = 0.7 * text_sim + 0.3 * image_sim;
+            let combined_score = TEXT_WEIGHT * text_sim + IMAGE_WEIGHT * image_sim;
             
-            if combined_score > best_score && combined_score >= (0.7 * text_threshold + 0.3 * image_threshold) {
+            if combined_score > best_score && combined_score >= (TEXT_WEIGHT * text_threshold + IMAGE_WEIGHT * image_threshold) {
                 best_score = combined_score;
                 best_cluster = Some(i);
             }
