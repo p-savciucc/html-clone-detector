@@ -1,5 +1,10 @@
 # HTML Clone Detector
 
+![Rust](https://img.shields.io/badge/Rust-🦀-orange)
+![Node.js](https://img.shields.io/badge/Node.js-✓-green)
+![Status](https://img.shields.io/badge/status-stable-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-blue)
+
 ## Short Description
 A high-performance, scalable tool that detects and groups visually similar (“clone”) HTML documents based on how they render in a web browser.
 
@@ -16,24 +21,29 @@ In real-world scenarios, multiple web pages may share structural or textual cont
 ## Project Structure
 ```
 HTML-CLONE-DETECTOR/
-├── dataset/            # HTML files to be processed
-├── diagrams/           # PNG diagrams for architecture and sequence
-│   ├── context.png
-│   └── sequence.png
-├── node-renderer/      # Node.js part (with Puppeteer)
-│   ├── batch_render.mjs
+├── dataset/
+├── diagrams/
+├── node-renderer/
+│   ├── node_modules/
+│   ├── src/
+│   │   ├── constants.js
+│   │   ├── main.js
+│   │   ├── pool.js
+│   │   └── scanner.js
 │   ├── package.json
 │   └── package-lock.json
-├── output/             # Generated results: JSON, screenshots, error logs
-├── rust-core/          # Rust logic for clustering
+├── output/
+├── rust-core/
 │   ├── src/
 │   │   ├── clustering.rs
+│   │   ├── constants.rs
 │   │   ├── image_processor.rs
 │   │   ├── loader.rs
 │   │   ├── main.rs
 │   │   └── vectorizer.rs
 │   ├── Cargo.toml
 │   └── Cargo.lock
+├── .gitignore
 ├── dev_progress_log.txt
 ├── README.md
 └── to_do.txt
@@ -42,101 +52,99 @@ HTML-CLONE-DETECTOR/
 ---
 
 ## Technologies Used
-- **Rust** (clustering logic, parallel processing with Rayon, image processing)
-- **Node.js + Puppeteer** (headless HTML rendering, text extraction, and screenshots)
-- **PlantUML** or similar tools for diagrams (see `diagrams/`)
-- **npm** for dependency management in the Node.js component
+This project leverages a dual-language architecture to combine performance and flexibility:
+- **Rust**: Used for CPU-intensive clustering, parallelism (with Rayon), and image/text vectorization. Its memory safety and speed make it ideal for real-time grouping of thousands of pages.
+- **Node.js + Puppeteer**: Handles the dynamic rendering of HTML pages in a headless browser (Chrome). Captures screenshots and extracts visible text exactly as seen by the user.
+- **PlantUML / Diagrams**: Used to document the sequence and architecture of the system.
+- **npm**: For managing JavaScript dependencies in the rendering layer.
 
 ---
 
-## Results
+## Tests
 
-### 1) Node Renderer
+### Node Renderer Tests
 
-After installing dependencies and running the main script:
+**Test 1 – 193 files**
 ```bash
-cd node-renderer
-npm install
-node batch_render.mjs
+node main.js
+✅ Processing complete in 15.58s
 ```
 
-**Example output**:
-```
-🔎 Total files to process: 193 + 3
- - Process 1: Close pages.
- - Process 2: Close browser.
- - Process 3: Write output file.
-
-(Step 3/3 complete) | 📊 196/196 | ⏳ ████████████████████] 100.0% | 🕒 ETA: ~0.0s
-
-✅ Processing complete in 32.83s. Results saved to `../output/node-renderer/output_pool.json`
- - Files processed with 0 errors.
-```
-
-### 2) Rust Core
-
-Compiling and running in release mode:
+**Test 2 – 1102 files**
 ```bash
-cd rust-core
+node main.js
+✅ Processing complete in 74.68s
+```
+
+**Test 3 – 2073 files**
+```bash
+node main.js
+✅ Processing complete in 129.09s
+```
+
+**🧩 Conclusion:** The Node.js renderer scaled linearly with the number of files and completed all runs without errors. Even with over 2,000 HTML pages, rendering remained stable and fast.
+
+---
+
+### Rust Core Tests
+
+**Test 1 – 193 files**
+```bash
 cargo run --release
+✅ Processing completed in 346.77ms
 ```
 
-**Example output**:
+**Test 2 – 1102 files**
+```bash
+cargo run --release
+✅ Processing completed in 1.21s
 ```
-📂 Found tiers: 4
-⚙️  Processing tier: tier2 (22 documents)
-⚙️  Processing tier: tier1 (101 documents)
-⚙️  Processing tier: tier3 (40 documents)
-⚙️  Processing tier: tier4 (30 documents)
 
-🧠 Clusters found in tier1: 17
-🧠 Clusters found in tier2: 9
-🧠 Clusters found in tier3: 10
-🧠 Clusters found in tier4: 10
-
-✅ No documents were skipped during processing
-✅ Processing completed in 1.22s
-💾 Results saved to `../output/rust-core/clusters.json`
+**Test 3 – 2073 files**
+```bash
+cargo run --release
+✅ Processing completed in 2.16s
 ```
+
+**🧠 Conclusion:** The Rust clustering engine handled thousands of documents in milliseconds, confirming its performance and suitability for batch processing. It consistently formed stable clusters across tiers and test runs.
 
 ---
 
 ## Usage
 
 1. **Clone the repository**:
-   ```bash
-   git clone <repo-url>
-   cd HTML-CLONE-DETECTOR
-   ```
-2. **Install Node.js dependencies** (in the `node-renderer/` folder):
-   ```bash
-   cd node-renderer
-   npm install
-   ```
+```bash
+git clone <repo-url>
+cd HTML-CLONE-DETECTOR
+```
+2. **Install Node.js dependencies**:
+```bash
+cd node-renderer
+npm install
+```
 3. **Run the HTML rendering script**:
-   ```bash
-   node batch_render.mjs
-   ```
-   Outputs will be placed in `output/node-renderer/`.
-4. **Compile and run the Rust component** (in the `rust-core/` folder):
-   ```bash
-   cd ../rust-core
-   cargo run --release
-   ```
-   The clustering results will be stored under `output/rust-core/`.
+```bash
+node main.js
+```
+4. **Compile and run the Rust component**:
+```bash
+cd ../rust-core
+cargo run --release
+```
 
 ---
 
 ## Sequence Diagram
-For an overview of how HTML files are read, rendered, and then grouped, see `diagrams/sequence.png`.  
-It illustrates the workflow from the user’s perspective, through the Node.js service (Puppeteer) and finally into the Rust-based clustering logic.
+The system consists of two main components: a Node.js renderer and a Rust-based clustering engine.
+
+![Sequence Diagram](diagrams/sequence.png)
 
 ---
 
 ## Development Time
-The analysis and architecture design took approximately 1 hour and 30 minutes. The Node-based part required around 6 hours and 31 minutes, including optimization and more detailed output, with a final runtime of ~32 seconds. The Rust part took about 2 hours and 40 minutes, including optimization, with processing completed in roughly 1.2 seconds after the HTML rendering step. Additionally, testing with various scenarios added another 3 hours to the overall effort.
+The analysis and architecture design took approximately 1 hour and 30 minutes. The Node-based part required around 6 hours and 31 minutes, including optimization and more detailed output, with a final runtime of ~32 seconds. The Rust part took about 2 hours and 40 minutes, including optimization, with processing completed in roughly 1.2 seconds after the HTML rendering step. Additionally, testing with various scenarios added another 5 hours to the overall effort.
 
-**Total**: approximately 13 hours and 41 minutes.
+**Total**: approximately 15 hours and 41 minutes.
 
 ---
 
