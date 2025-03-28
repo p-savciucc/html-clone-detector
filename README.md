@@ -124,11 +124,13 @@ npm install
 ```
 3. **Run the HTML rendering script**:
 ```bash
+cd src
 node main.js
 ```
 4. **Compile and run the Rust component**:
 ```bash
-cd ../rust-core
+cd ../../rust-core
+cd src
 cargo run --release
 ```
 
