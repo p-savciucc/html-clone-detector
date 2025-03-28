@@ -345,6 +345,14 @@ The analysis and architecture design took approximately 1 hour and 30 minutes. T
 
 ---
 
+## 👥 Contributing
+
+- Found a bug? Open an issue.  
+- Got an idea? Label it `enhancement`.  
+- Opening a PR? Make sure it passes `cargo test --release` and follows code style.  
+
+---
+
 ## Author
 - **Name**: Savciuc Constantin  
 - **Email**: savciuccu@gmail.com  
