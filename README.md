@@ -17,6 +17,7 @@ It uses:
 - A custom similarity engine to form "clone sets" based on visual and textual features  
 
 In practice, many web pages look identical despite structural code differences. This solution emphasizes scalability, parallelism, and reliable data extraction to create accurate, consistent clusters of similar pages.
+
 ---
 
 ### 🧠 Ultra-Compact Summary: Hybrid HTML Clustering
