@@ -15,6 +15,7 @@
 - [Usage](#usage)
 - [Sequence Diagram](#sequence-diagram)
 - [Development Time](#development-time)
+- [Contributing](#contributing)
 - [Author](#author)
 
 ## Short Description
@@ -345,7 +346,7 @@ The analysis and architecture design took approximately 1 hour and 30 minutes. T
 
 ---
 
-## 👥 Contributing
+## Contributing
 
 - Found a bug? Open an issue.  
 - Got an idea? Label it `enhancement`.  
