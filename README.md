@@ -231,27 +231,6 @@ Rust Core:
 
 ---
 
-### Visual Decision Guide
-
-```mermaid
-graph TD
-    A[Use Case] --> B{Need Visual Precision?}
-    B -->|Yes| C[Use Hybrid (Node + Rust)]
-    B -->|No| D{Large Scale / Automation?}
-    D -->|Yes| E[Use Rust Only]
-    D -->|No| F{Is Structure Important?}
-    F -->|Yes| E
-    F -->|No| C
-```
-
----
-
-### Trade-off Snapshot
-
-![Trade-off Chart](https://via.placeholder.com/600x200/2d2d2d/ffffff?text=Speed+vs+Accuracy+Trade-off+Chart)
-
----
-
 ### Summary
 
 - Hybrid = Best for pixel-accurate layout comparison, UI testing
