@@ -11,7 +11,7 @@
 - [Long Description](#long-description)
 - [Project Structure](#project-structure)
 - [Technologies Used](#technologies-used)
-- [Tests](#tests)
+- [Tests & Performance](#-tests--performance)
 - [Usage](#usage)
 - [Sequence Diagram](#sequence-diagram)
 - [Development Time](#development-time)
