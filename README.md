@@ -342,9 +342,13 @@ The system consists of two main components: a Node.js renderer and a Rust-based 
 ---
 
 ## Development Time
-The analysis and architecture design took approximately 1 hour and 30 minutes. The Node-based part required around 6 hours and 31 minutes, including optimization and more detailed output, with a final runtime of ~32 seconds. The Rust part took about 2 hours and 40 minutes, including optimization, with processing completed in roughly 1.2 seconds after the HTML rendering step. Additionally, testing with various scenarios added another 5 hours to the overall effort.
 
-**Total**: approximately 15 hours and 41 minutes.
+The project was completed in approximately **15 hours and 41 minutes**, broken down as follows:
+
+- **Architecture & planning**: 1h 30min
+- **Node.js implementation and optimization**: 6h 30min
+- **Rust core development**: 2h 40min
+- **Testing and validation**: 5h
 
 ---
 
