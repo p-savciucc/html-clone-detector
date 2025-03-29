@@ -378,7 +378,7 @@ run_all.ps1
 | Input HTML Files   | `dataset/`                    | `dataset\`               |
 | Screenshots Output | `output/node-renderer/`       | `output\node-renderer\` |
 | Cluster Results    | `output/rust-core/`           | `output\rust-core\`     |
-| Error Logs         | `output/node-renderer/error.log`     | `output/node-renderer\error.log`|
+| Error Logs         | `output/node-renderer/error.log`     | `output\node-renderer\error.log`|
 
 ---
 
