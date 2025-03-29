@@ -33,7 +33,7 @@ In practice, many web pages look identical despite structural code differences. 
 
 ---
 
-### Hybrid HTML Clustering
+### 🌐 Hybrid HTML Clustering
 
 **Hybrid HTML Clustering Algorithm** combines text and visual analysis:
 
@@ -47,7 +47,7 @@ In practice, many web pages look identical despite structural code differences. 
 
 ---
 
-### Node.js Renderer Summary
+### 🦀 Node.js Renderer Summary
 
 **Advanced Preprocessing Pipeline**:
 
@@ -249,7 +249,7 @@ Rust Core:
 
 ---
 
-##  Accuracy Trade-off Matrix
+###  Accuracy Trade-off Matrix
 
 | Scenario           | Hybrid Accuracy | Rust Accuracy | Winner        |
 |--------------------|------------------|----------------|----------------|
@@ -268,13 +268,15 @@ Rust Core:
 
 ## Recommended Usage by Scenario
 
-### **Hybrid Version** (Visual + Text)
+### 🌐 **Hybrid Version** (Visual + Text)
 Choose this when:
 - ✅ You need visual fidelity (UI validation, screenshot comparison)
 - ✅ Detecting layout changes (e.g., landing page snapshots, redesigns)
 - ✅ You can tolerate higher resource consumption for greater visual precision  
 Avoid if:
 - ❌ You're working with >10k files per run or have memory constraints
+
+### 🦀 **Pure Rust Version** ([View Repo](https://github.com/p-savciucc/pure-html-clone-detector))
 
 Choose this when:
 - ✅ You focus on content-heavy platforms (e.g., documentation, blogs)
@@ -283,7 +285,6 @@ Choose this when:
 Avoid if:
 - ❌ You require pixel-perfect visual detection
 
-**Pure Rust Version** ([View Repo](https://github.com/p-savciucc/pure-html-clone-detector))
 
 ## Summary Takeaway
 
