@@ -5,7 +5,7 @@
 ![Status](https://img.shields.io/badge/status-stable-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-## 🔎 Quick Navigation
+## Quick Navigation
 
 - [Short Description](#short-description)
 - [Long Description](#long-description)
@@ -33,7 +33,7 @@ In practice, many web pages look identical despite structural code differences. 
 
 ---
 
-### 🧠 Ultra-Compact Summary: Hybrid HTML Clustering
+### Hybrid HTML Clustering
 
 **Hybrid HTML Clustering Algorithm** combines text and visual analysis:
 
@@ -47,7 +47,7 @@ In practice, many web pages look identical despite structural code differences. 
 
 ---
 
-### ⚙️ Node.js Renderer Summary
+### Node.js Renderer Summary
 
 **Advanced Preprocessing Pipeline**:
 
@@ -209,15 +209,15 @@ Rust Core:
 
 ---
 
-# 🧪 Performance Benchmarks & Comparative Analysis
+## Performance Benchmarks & Comparative Analysis
 
-## ⚔️ Head-to-Head Overview
+### Head-to-Head Overview
 
-| Metric                | 🔁 Hybrid (Visual + Text)        | 🦀 Pure Structural (Rust Only)      |
+| Metric                | Hybrid (Visual + Text)        | Pure Structural (Rust Only)      |
 |-----------------------|----------------------------------|-------------------------------------|
 | **Use Case**          | UI snapshot validation, pixel accuracy | High-speed content structure analysis |
-| **Average Speed**     | ~82 docs/sec                    | ~2,548 docs/sec ⚡️ (≈31× faster)    |
-| **Memory per Document** | ~8.2 MB                        | ~3.9 KB 🧠 (≈2,100× smaller)         |
+| **Average Speed**     | ~82 docs/sec                    | ~2,548 docs/sec (≈31× faster)    |
+| **Memory per Document** | ~8.2 MB                        | ~3.9 KB (≈2,100× smaller)         |
 | **Accuracy\***        | 94% (visual-grounded)           | 88% (textual-focused)              |
 | **Hardware Needs**    | Requires GPU for optimal performance | CPU-only, cross-platform-friendly  |
 
@@ -225,31 +225,31 @@ Rust Core:
 
 ---
 
-## 📈 Detailed Performance Breakdown
+## Detailed Performance Breakdown
 
-### ⏱️ Test Execution Results
+### Test Execution Results
 
 | File Count | Hybrid Version (Node + Rust) | Pure Rust Version | Relative Speed Gain |
 |------------|------------------------------|-------------------|---------------------|
 | 193        | 16.0 s                       | 0.93 s            | **17.2× faster**     |
 | 2,314      | 152.0 s                      | 4.5 s             | **33.8× faster**     |
-| 30,493     | ❌ Not tested                 | 51.7 s            | N/A                 |
-| 312,283    | ❌ Not tested                 | 563.3 s           | N/A                 |
+| 30,493     | Not tested                   | 51.7 s            | N/A                 |
+| 312,283    | Not tested                   | 563.3 s           | N/A                 |
 
 ---
 
-### 🧮 Resource Efficiency (30,000 files)
+### Resource Efficiency (30,000 files)
 
 | Resource       | Hybrid Version          | Pure Rust Version     | Efficiency Gain    |
 |----------------|-------------------------|------------------------|---------------------|
-| CPU Usage      | ~65% (4 threads)        | ~98% (8 threads)       | +33% ⬆️             |
-| Peak Memory    | ~4.1 GB                 | ~210 MB                | **19.5× better** 🧠 |
-| Disk I/O       | ~18 MB/s                | ~2.1 MB/s              | **8.5× better** 💾  |
-| Network Usage  | ~1.2 Gbps (screenshots) | None                   | ♾️ Zero overhead 🌐 |
+| CPU Usage      | ~65% (4 threads)        | ~98% (8 threads)       | +33%             |
+| Peak Memory    | ~4.1 GB                 | ~210 MB                | **19.5× better**  |
+| Disk I/O       | ~18 MB/s                | ~2.1 MB/s              | **8.5× better**  |
+| Network Usage  | ~1.2 Gbps (screenshots) | None                   | Zero overhead  |
 
 ---
 
-## 🎯 Accuracy Trade-off Matrix
+##  Accuracy Trade-off Matrix
 
 | Scenario           | Hybrid Accuracy | Rust Accuracy | Winner        |
 |--------------------|------------------|----------------|----------------|
@@ -260,7 +260,7 @@ Rust Core:
 
 ---
 
-## 🖥️ Test Environment
+## Test Environment
 
 ```bash
 Processor:  Intel Core i5-1135G7 @ 4.2GHz (4 cores / 8 threads)
@@ -271,9 +271,9 @@ OS:         Ubuntu 22.04 LTS (x86_64)
 
 ---
 
-## 🧠 Interpretarea Rezultatelor
+## Interpretarea Rezultatelor
 
-### 🔎 Key Insights
+### Key Insights
 
 - ✅ **Speed Scaling**: Rust version maintains >2,500 docs/sec up to 300k+ HTMLs
 - ✅ **Memory Footprint**: Hybrid = 4 Chrome tabs/doc vs. Rust = <4KB/doc
@@ -283,9 +283,9 @@ OS:         Ubuntu 22.04 LTS (x86_64)
 
 ---
 
-## 🚦 Recommended Usage by Scenario
+## Recommended Usage by Scenario
 
-### 🔁 **Hybrid Version** (Visual + Text)
+### **Hybrid Version** (Visual + Text)
 Choose this when:
 - ✅ You need visual fidelity (UI validation, screenshot comparison)
 - ✅ Detecting layout changes (e.g., landing page snapshots, redesigns)
@@ -303,7 +303,7 @@ Avoid if:
 
 ---
 
-## ✅ Summary Takeaway
+## Summary Takeaway
 
 > The **Hybrid Version** offers stronger visual clone detection at the cost of performance and memory, ideal for frontend/UI-related use cases.  
 > The **Rust Version** dominates in scalability, speed, and simplicity, making it the go-to for large-scale content analysis and integration in automated environments.
@@ -321,7 +321,7 @@ This project includes ready-to-run scripts for both Linux/Mac and Windows to sim
 
 ### 🔧 Full Setup & Execution Guide (All OS)
 
-#### 1. 📦 Clone the Repository
+#### 1. Clone the Repository
 ```bash
 # Linux / macOS
 git clone https://github.com/your-repo/html-clone-detector.git
@@ -333,7 +333,7 @@ git clone https://github.com/your-repo/html-clone-detector.git
 cd html-clone-detector
 ```
 
-#### 2. ⚙️ Install Dependencies
+#### 2. Install Dependencies
 
 ```bash
 # Linux / macOS
@@ -350,7 +350,7 @@ rustup-init -y
 $env:Path += ";C:\Users\$env:USERNAME\.cargo\bin"
 ```
 
-#### 3. 🔨 Build Components
+#### 3. Build Components
 
 ```bash
 cd node-renderer && npm install && cd ..
@@ -362,7 +362,7 @@ cd node-renderer; npm install; cd ..
 cd rust-core; cargo build --release; cd ..
 ```
 
-#### 4. 🗂️ Prepare Environment
+#### 4. Prepare Environment
 
 ```bash
 # Linux / macOS
@@ -376,7 +376,7 @@ New-Item -ItemType Directory -Path "dataset" -Force
 Set-ExecutionPolicy Bypass -Scope Process -Force
 ```
 
-#### 5. ▶️ Run the Pipeline
+#### 5. Run the Pipeline
 
 ```bash
 ./run_all.sh
@@ -388,66 +388,16 @@ run_all.ps1
 
 ---
 
-### 📁 Cross-Platform Output Paths
+### Cross-Platform Output Paths
 
 | Description        | Linux/macOS Path              | Windows Path              |
 |--------------------|-------------------------------|---------------------------|
 | Input HTML Files   | `dataset/`                    | `dataset\`               |
-| Screenshots Output | `node-renderer/output/`       | `node-renderer\output\` |
-| Cluster Results    | `rust-core/output/`           | `rust-core\output\`     |
-| Error Logs         | `node-renderer/error.log`     | `node-renderer\error.log`|
+| Screenshots Output | `output/node-renderer/`       | `output\node-renderer\` |
+| Cluster Results    | `output/rust-core/`           | `output\rust-core\`     |
+| Error Logs         | `output/node-renderer/error.log`     | `output/node-renderer\error.log`|
 
 ---
-
-### 🛠 Troubleshooting Tips
-
-#### Puppeteer / Chromium Issues
-```bash
-# Linux
-sudo apt-get install -y libgbm-dev
-```
-```powershell
-# Windows
-npm install --global windows-build-tools
-```
-
-#### Rust Build Issues
-- Install [Visual Studio C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) on Windows.
-
-#### Skip Chromium Download
-```bash
-PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm install
-```
-
-#### Windows WSL Option
-```bash
-wsl git clone ...
-# Then follow Linux instructions
-```
-
----
-
-### 📂 Unified Runner Scripts (logic used)
-
-**`run_all.sh` (Linux/Mac)**
-
-```bash
-#!/bin/bash
-echo "🔄 Rendering HTML documents..." && cd node-renderer && node src/main.js && cd .. && echo "🔍 Analyzing clusters..." && cd rust-core/target/release && ./html_clone_detector && cd ../../..
-```
-
-**`run_all.ps1` (Windows)**
-
-```powershell
-Write-Host "🔄 Rendering HTML documents..." -ForegroundColor Cyan
-cd node-renderer; node src/main.js; cd ..
-Write-Host "🔍 Analyzing clusters..." -ForegroundColor Cyan
-cd rust-core\target\release; .\html_clone_detector.exe; cd ..\..\..
-```
-
----
-
-✅ With these steps, your environment will be ready to process and analyze thousands of HTML files in just a few minutes — fully automated on **any OS**.
 
 ## Sequence Diagram
 The system consists of two main components: a Node.js renderer and a Rust-based clustering engine.
