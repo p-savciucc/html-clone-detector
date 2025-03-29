@@ -131,7 +131,7 @@ _* Node.js lacks native DBSCAN implementations; Python uses scikit-learn_
 
 ---
 
-## Tests
+## 🧪 Tests & Performance
 
 ### ⚙️ HTML Clone Detector (Visual + Text)
 > This version uses both headless rendering (Node.js + Puppeteer) and Rust clustering.
@@ -209,87 +209,59 @@ Rust Core:
 
 ---
 
-## Performance Benchmarks & Comparative Analysis
+### Key Version Comparison
 
-### Head-to-Head Overview
-
-| Metric                | Hybrid (Visual + Text)        | Pure Structural (Rust Only)      |
-|-----------------------|----------------------------------|-------------------------------------|
-| **Use Case**          | UI snapshot validation, pixel accuracy | High-speed content structure analysis |
-| **Average Speed**     | ~82 docs/sec                    | ~2,548 docs/sec (≈31× faster)    |
-| **Memory per Document** | ~8.2 MB                        | ~3.9 KB (≈2,100× smaller)         |
-| **Accuracy\***        | 94% (visual-grounded)           | 88% (textual-focused)              |
-| **Hardware Needs**    | Requires GPU for optimal performance | CPU-only, cross-platform-friendly  |
-
-> \* Accuracy evaluated against a human-curated benchmark dataset (clone groups and structural variants).
+| Metric               | Hybrid (Visual + Text) | Pure Rust Only |
+|----------------------|------------------------|----------------|
+| Avg. Speed           | 82 docs/sec            | 2,548 docs/sec |
+| Memory / Document    | 8.2 MB                 | 3.9 KB         |
+| Visual Accuracy      | 97%                    | 62%            |
+| Textual Accuracy     | 89%                    | 94%            |
 
 ---
 
-## Detailed Performance Breakdown
+### Scalability Benchmarks
 
-### Test Execution Results
-
-| File Count | Hybrid Version (Node + Rust) | Pure Rust Version | Relative Speed Gain |
-|------------|------------------------------|-------------------|---------------------|
-| 193        | 16.0 s                       | 0.93 s            | **17.2× faster**     |
-| 2,314      | 152.0 s                      | 4.5 s             | **33.8× faster**     |
-| 30,493     | Not tested                   | 51.7 s            | N/A                 |
-| 312,283    | Not tested                   | 563.3 s           | N/A                 |
+| HTML Files Processed | Hybrid (Node + Rust) | Pure Rust |
+|----------------------|----------------------|-----------|
+| 193                  | 16.0s                | 0.93s     |
+| 2,314                | 152.0s               | 4.5s      |
+| 30,493               | -                    | 51.7s     |
+| 312,283              | -                    | 563.3s    |
 
 ---
 
-### Resource Efficiency (30,000 files)
+### Visual Decision Guide
 
-| Resource       | Hybrid Version          | Pure Rust Version     | Efficiency Gain    |
-|----------------|-------------------------|------------------------|---------------------|
-| CPU Usage      | ~65% (4 threads)        | ~98% (8 threads)       | +33%             |
-| Peak Memory    | ~4.1 GB                 | ~210 MB                | **19.5× better**  |
-| Disk I/O       | ~18 MB/s                | ~2.1 MB/s              | **8.5× better**  |
-| Network Usage  | ~1.2 Gbps (screenshots) | None                   | Zero overhead  |
+```mermaid
+graph TD
+    A[Use Case] --> B{Need Visual Precision?}
+    B -->|Yes| C[Use Hybrid (Node + Rust)]
+    B -->|No| D{Large Scale / Automation?}
+    D -->|Yes| E[Use Rust Only]
+    D -->|No| F{Is Structure Important?}
+    F -->|Yes| E
+    F -->|No| C
+```
 
 ---
 
-###  Accuracy Trade-off Matrix
+### Trade-off Snapshot
 
-| Scenario           | Hybrid Accuracy | Rust Accuracy | Winner        |
-|--------------------|------------------|----------------|----------------|
-| Pixel-level layout | ✅ 97%           | ❌ 62%         | **Hybrid**   |
-| Structural clones  | ❌ 89%           | ✅ 94%         | **Rust**     |
-| Mixed DOM+style    | ✅ 91%           | ❌ 83%         | **Hybrid**   |
-| Repetitive layouts | ❌ 78%           | ✅ 96%         | **Rust**     |
+![Trade-off Chart](https://via.placeholder.com/600x200/2d2d2d/ffffff?text=Speed+vs+Accuracy+Trade-off+Chart)
+
+---
+
+### Summary
+
+- Hybrid = Best for pixel-accurate layout comparison, UI testing
+- Rust = Best for large-scale content clustering, CI/CD pipelines, low-resource environments
 
 ---
 
 **Test Environment**:  
 - Intel i5-1135G7, 16GB RAM, SSD  
 - Ubuntu 22.04 LTS
-
----
-
-## Recommended Usage by Scenario
-
-### 🌐 **Hybrid Version** (Visual + Text)
-Choose this when:
-- ✅ You need visual fidelity (UI validation, screenshot comparison)
-- ✅ Detecting layout changes (e.g., landing page snapshots, redesigns)
-- ✅ You can tolerate higher resource consumption for greater visual precision  
-Avoid if:
-- ❌ You're working with >10k files per run or have memory constraints
-
-### 🦀 **Pure Rust Version** ([View Repo](https://github.com/p-savciucc/pure-html-clone-detector))
-
-Choose this when:
-- ✅ You focus on content-heavy platforms (e.g., documentation, blogs)
-- ✅ You're building scalable pipelines (CI/CD, serverless, CLI tools)
-- ✅ You're working on machines with constrained I/O or RAM
-Avoid if:
-- ❌ You require pixel-perfect visual detection
-
-
-## Summary Takeaway
-
-> The **Hybrid Version** offers stronger visual clone detection at the cost of performance and memory, ideal for frontend/UI-related use cases.  
-> The **Rust Version** dominates in scalability, speed, and simplicity, making it the go-to for large-scale content analysis and integration in automated environments.
 
 ---
 
