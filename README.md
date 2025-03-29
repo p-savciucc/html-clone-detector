@@ -253,33 +253,16 @@ Rust Core:
 
 | Scenario           | Hybrid Accuracy | Rust Accuracy | Winner        |
 |--------------------|------------------|----------------|----------------|
-| Pixel-level layout | ✅ 97%           | ❌ 62%         | 🏆 **Hybrid**   |
-| Structural clones  | ❌ 89%           | ✅ 94%         | 🏆 **Rust**     |
-| Mixed DOM+style    | ✅ 91%           | ❌ 83%         | 🏆 **Hybrid**   |
-| Repetitive layouts | ❌ 78%           | ✅ 96%         | 🏆 **Rust**     |
+| Pixel-level layout | ✅ 97%           | ❌ 62%         | **Hybrid**   |
+| Structural clones  | ❌ 89%           | ✅ 94%         | **Rust**     |
+| Mixed DOM+style    | ✅ 91%           | ❌ 83%         | **Hybrid**   |
+| Repetitive layouts | ❌ 78%           | ✅ 96%         | **Rust**     |
 
 ---
 
-## Test Environment
-
-```bash
-Processor:  Intel Core i5-1135G7 @ 4.2GHz (4 cores / 8 threads)
-Memory:     16 GB DDR4 @ 3200MHz
-Storage:    Samsung 980 Pro NVMe SSD
-OS:         Ubuntu 22.04 LTS (x86_64)
-```
-
----
-
-## Interpretarea Rezultatelor
-
-### Key Insights
-
-- ✅ **Speed Scaling**: Rust version maintains >2,500 docs/sec up to 300k+ HTMLs
-- ✅ **Memory Footprint**: Hybrid = 4 Chrome tabs/doc vs. Rust = <4KB/doc
-- ✅ **Accuracy Balance**: Hybrid wins in pixel-diff contexts, Rust excels in semantic clones
-- ✅ **I/O Load**: Rust has minimal disk & network overhead — ideal for CI pipelines
-- ⚠️ **Tradeoff**: 6% drop in accuracy = **31×** throughput gain in structural clone use cases
+**Test Environment**:  
+- Intel i5-1135G7, 16GB RAM, SSD  
+- Ubuntu 22.04 LTS
 
 ---
 
@@ -293,7 +276,6 @@ Choose this when:
 Avoid if:
 - ❌ You're working with >10k files per run or have memory constraints
 
-### 🦀 **Pure Rust Version** ([View Repo](https://github.com/p-savciucc/pure-html-clone-detector))
 Choose this when:
 - ✅ You focus on content-heavy platforms (e.g., documentation, blogs)
 - ✅ You're building scalable pipelines (CI/CD, serverless, CLI tools)
@@ -301,7 +283,7 @@ Choose this when:
 Avoid if:
 - ❌ You require pixel-perfect visual detection
 
----
+**Pure Rust Version** ([View Repo](https://github.com/p-savciucc/pure-html-clone-detector))
 
 ## Summary Takeaway
 
