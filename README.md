@@ -106,28 +106,29 @@ HTML-CLONE-DETECTOR/
 
 ---
 
-## Technologies Used  
-This project leverages a dual-language architecture to combine performance and flexibility:  
+## Technologies Used
 
-### 🦀 Rust Core  
-**Why Rust?**  
-- **Memory Safety**: Eliminates entire classes of bugs via ownership system  
-- **Performance**: Native speed for TF-IDF/DBSCAN operations (~100x faster than Python, 10-25x faster than Node.js for compute-heavy tasks)  
-- **Parallelism**: Rayon enables effortless data parallelism  
+This project uses a hybrid architecture to combine the strengths of low-level performance (Rust) and flexible I/O (Node.js).
 
-### 🌐 Node.js + Puppeteer  
-**Why Node.js?**  
-- **Async I/O**: Optimal for concurrent rendering tasks  
-- **Ecosystem**: Rich library support (e.g., Puppeteer)  
-- **Bridging**: Seamless data passing to Rust via JSON/FFI  
+### Rust Core (Clustering Engine)
+- Designed for high-throughput vector processing and clustering (e.g. DBSCAN)
+- Memory-safe, parallelized with [Rayon](https://docs.rs/rayon/)
+- Executes core logic (TF-IDF, similarity scoring) with native speed
 
-| Operation           | Rust (ms) | Node.js (ms) | Python (ms) |  
-|---------------------|-----------|--------------|-------------|  
-| TF-IDF (1k docs)    | 12        | 180          | 1,200       |  
-| DBSCAN (5k points)  | 48        | N/A*         | 4,800       |  
-| Image Histogram     | 9         | 110          | 950         |  
+### Node.js + Puppeteer (Renderer)
+- Handles DOM rendering and text extraction in headless mode
+- Optimized for concurrency using async/await and pool-based browser control
+- Outputs structured JSON payloads consumed by the Rust backend
 
-_* Node.js lacks native DBSCAN implementations; Python uses scikit-learn_
+### Performance Snapshot
+
+| Operation           | Rust (ms) | Node.js (ms) | Python (ms) |
+|---------------------|-----------|--------------|-------------|
+| TF-IDF (1k docs)    | 12        | 180          | 1,200       |
+| DBSCAN (5k points)  | 48        | N/A*         | 4,800       |
+| Image Histogram     | 9         | 110          | 950         |
+
+> \* Node.js lacks native DBSCAN support; Python used scikit-learn.
 
 ---
 
